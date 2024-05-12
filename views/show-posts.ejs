@@ -1,0 +1,35 @@
+<% include ./partials/Headers.ejs %>
+        <div class="min-h-screen w-full px-4 py-4 flex gap-2">
+            <div class="image min-h-screen w-1/2 flex justify-center items-center">
+                <div id="uploadpins" class="h-auto bg-zinc-200 w-3/5 rounded-[30px] flex flex-col justify-center items-center">
+                    <img class="bg-cover h-auto w-full rounded-lg" src="/images/uploads/<%= posts.image %>" alt="" >
+                </div>
+            </div>
+        
+                <div class="content min-h-screen w-1/2 px-4 py-4">
+                    <div class="h-16 w-full flex items-center justify-end px-4">
+                        <a href="/images/uploads/<%= posts.image %>" download="image.jpg" class="h-12 w-16 bg-red-600 flex justify-center items-center rounded-lg"><i class="fa-solid fa-download text-2xl font-bold text-white"></i></a>
+                    </div>
+                    <div class="flex flex-col gap-6 mt-20">
+                        <div class="h-28 w-full flex items-center px-4 gap-6">
+                            <div class="h-20 w-20 bg-slate-400 rounded-full flex justify-center items-center overflow-hidden">
+                                <% if(posts.user.Imagetext){ %>
+                                    <img class="bg-cover h-auto w-full" src="/images/uploads/<%= posts.user.Imagetext %>" alt="">
+                                    <% }else{ %>
+                                        <div class="flex justify-center items-center text-[50px] font-semibold h-40 w-40 text-white cursor-default"><%= posts.user.username.charAt(0).toUpperCase() %></div>
+                                    <% } %>
+                            </div><h1 class="text-3xl font-bold"><%= posts.user.username %></h1>
+                        </div>
+                        <div class="px-4"><label class="text-2xl font-semibold " for="title">Title</label><br>
+                            <h1 class="h-16 bg-red-400 mt-6 py-4 px-4 text-xl font-semibold border-2 border-black rounded-lg"><%= posts.title %></h1>
+                        </div><br>
+                        <div class="px-4"><label class="text-xl font-semibold overflow-auto" for="description">Description</label><br>
+                            <h1 class="h-28 bg-red-400 mt-6 py-4 px-4 text-xl font-semibold border-2 border-black rounded-lg"><%= posts.description %></h1>
+                        </div><br>
+                        <div class="px-4"><label class="text-xl font-semibold" for="link">Link</label><br>
+                            <h1 class="h-16 bg-red-400 mt-6 py-4 px-4 text-xl font-semibold border-2 border-black rounded-lg"><a href="<%= posts.link %>"><%= posts.link %></a></h1>
+                        </div><br>
+                    </div>
+                </div>
+            </div>
+<% include ./partials/footer.ejs %>

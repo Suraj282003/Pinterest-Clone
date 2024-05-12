@@ -1,0 +1,51 @@
+<% include ./partials/Headers.ejs %>
+<div class="h-28 flex items-center justify-center border-b-2 border-black mx-4">
+    <h1 class="text-3xl font-semibold">Create Your Pins Here</h1>
+</div>
+<div class="min-h-screen w-full px-4 py-4 flex gap-2">
+    <div class="image min-h-screen w-1/2 flex justify-center items-center">
+        <div id="uploadpins" class="h-4/5 bg-zinc-200 w-3/5 rounded-[30px] flex flex-col justify-center items-center cursor-pointer">
+            <i class="fa-solid fa-arrow-up-from-bracket text-[50px] text-white bg-black p-6 border-2 border-black rounded-full "></i>
+            <h3 class="text-xl mt-4 font-semibold ">Choose your file here</h3>
+        </div>
+    </div>
+
+        <div class="content min-h-screen w-1/2 px-4 py-4">
+            <form class="flex flex-col gap-4 mt-20" action="/createpost" method="post" enctype="multipart/form-data">
+                <input hidden id="uploadimage" type="file" name="postimage">
+                <div><label class="text-xl font-semibold " for="title">Title</label><br>
+                    <input class="h-14 w-4/5 rounded-lg text-2xl p-4 outline-none border-2" placeholder="Add a Title" type="text" name="title" required></div><br>
+                <div><label class="text-xl font-semibold" for="description">Description</label><br>
+                    <textarea class="h-28 overscroll-none w-4/5 rounded-lg text-2xl p-4 outline-none border-2" placeholder="Add a Description" type="text" name="description" required></textarea></div><br>
+                <div><label class="text-xl font-semibold" for="link">Link</label><br>
+                    <input class="h-14 w-4/5 rounded-lg text-2xl p-4 outline-none border-2" placeholder="Add a Link" type="text" name="link"></div><br>
+                <div>
+                    <input class="text-xl font-semibold bg-purple-700 px-4 py-2 rounded-lg text-white cursor-pointer" type="submit" value="Publish..">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('#uploadpins').addEventListener('click', function(){
+            document.querySelector('#uploadimage').click();
+        });
+    
+        document.querySelector('#uploadimage').addEventListener('change', function(){
+            const fileInput = document.querySelector('#uploadimage');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const imageElement = document.createElement('img');
+                    imageElement.src = event.target.result;
+                    imageElement.className = 'h-auto w-1/2 rounded-md bg-cover'; // Add desired classes for styling
+                    document.querySelector('.image').innerHTML = ''; // Clear existing content
+                    document.querySelector('.image').appendChild(imageElement);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+    </script>
+<% include ./partials/footer.ejs %>

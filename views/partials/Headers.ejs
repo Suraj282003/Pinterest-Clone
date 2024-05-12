@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pinterest</title>
+  <link rel="icon" class="h-8 w-8" href="https://i.pinimg.com/originals/d3/d1/75/d3d175e560ae133f1ed5cd4ec173751a.png" sizes="84x84" type="image/x-icon">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    .logout-link {
+        position: relative;
+        display: inline-block;
+    }
+
+    .logout-text {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    .logout-link:hover .logout-text {
+        display: block;
+    }
+
+    .fixed-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure the navbar appears above other content */
+        }
+
+        /* Add padding to the body to prevent content from being hidden under the navbar */
+        body {
+            padding-top: 110px; /* Adjust as needed based on the navbar height */
+        }
+
+</style>
+
+</head>
+<body>
+  <% if (nav === true){ %>
+  <div class="fixed-navbar w-full bg-zinc-100 h-[110px] pt-6 px-4 mb-2">
+    <ul class="flex no-underline items-center font-bold text-xl justify-between">
+        <li><img src="https://i.pinimg.com/originals/d3/d1/75/d3d175e560ae133f1ed5cd4ec173751a.png" alt="pin logo" class="h-16 p-2" /></li>
+        <li class=""><a href="/">Home</a></li>
+        <li><a href="#">Explore</a></li>
+        <li><a href="/createpins">Create</a></li>
+        <li class="w-3/5 flex items-center bg-slate-200 px-2 rounded-[30px] overflow-hidden"><i class="fa-solid fa-magnifying-glass text-slate-400 border-2 py-[19px] "></i><input id="searchInput" type="text" class="h-[60px] border-none w-full bg-slate-200 border focus:border-transparent focus:outline-none p-2" name="search" placeholder="Search"></li>
+        <li class="text-slate-600 text-3xl"><a href="#"><i class="fa-solid fa-bell"></i></a></li>
+        <li class="text-slate-600 text-3xl"><a href="#"><i class="fa-solid fa-comment-dots"></i></a></li>
+        <% if (loggedIn) { %>
+          <li class="px-4 py-4 rounded-full text-white focus:pointer-events-auto flex flex-row items-center gap-4">
+              <a href="/profile" id="proicon" class="flex items-center justify-center h-[48px] w-[48px] rounded-full bg-slate-400 text-white text-3xl font-semibold">
+                <%= user.username.charAt(0).toUpperCase() %>
+              </a>
+              <a class="logout-link" href="/logout"><i class="fa-solid fa-right-from-bracket text-black"></i>
+                <span class="logout-text">Logout</span>
+              </a>
+          </li>
+          
+      <% } else { %>
+          <!-- Show login and sign up buttons for not-logged-in users -->
+          <li class="px-4 py-4 rounded-full bg-red-500 text-white focus:pointer-events-auto">
+              <a href="/login">Login</a>
+          </li>
+          <li class="px-4 py-4 rounded-full bg-zinc-300 focus:pointer-events-auto">
+              <a href="/register">Sign Up</a>
+          </li>
+      <% } %>
+      
+    </ul>
+  </div>
+
+  <% } %>

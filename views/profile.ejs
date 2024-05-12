@@ -1,0 +1,48 @@
+<% include ./partials/Headers.ejs %>
+<form hidden action="/fileupload" method="post" enctype="multipart/form-data" id="uploadimage">
+    <input type="file" name="image" id="">
+</form>
+<div class="w-full h-auto flex items-center justify-center">
+
+    <div class="profilecard h-96 w-1/2 p-6 bg-white">
+    <div class="h-auto w-full mx-[380px] align-middle">
+        <div id="pencilicon" class="h-12 text-2xl text-center py-2 rounded-full bg-slate-300 w-12 absolute mx-28 my-28"><i class="fa-solid fa-pencil"></i></div>
+        <div class="profileimage h-40 w-40 rounded-full bg-zinc-200 overflow-hidden">
+            <% if(user.Imagetext){ %>
+            <img class="bg-cover h-auto w-full" src="./images/uploads/<%= user.Imagetext %>" alt="">
+            <% }else{ %>
+                <div class="flex justify-center items-center text-[50px] font-semibold h-40 w-40"><%= user.username.charAt(0).toUpperCase() %></div>
+            <% } %>
+        </div>
+    </div>
+        <h1 class="text-2xl mt-6 text-center font-bold"><%= user.fullname %></h1>
+        <h1 class="text-xl text-slate-600 my-2 text-center"><i class="fa-brands fa-pinterest pr-2"></i><%= user.username %></h1>
+        <div class="button flex justify-center items-center w-full h-16 gap-4 my-4">
+            <a class="px-4 py-2 rounded-full font-bold bg-slate-200" href="#">Edit Profile</a>
+            <a class="px-4 py-2 rounded-full font-bold bg-slate-200" href="/createpins">Add new Pins</a>
+
+        </div>
+    </div>
+</div>
+
+<div class="min-h-screen w-full my-18 p-6">
+<div class="min-h-screen w-full my-18 p-6 flex flex-wrap gap-4">
+    <div class="cards h-auto w-64">
+        <div class="cardpins h-auto w-64 bg-zinc-200 rounded-lg overflow-hidden">
+        <img class="bg-cover" src="./images/uploads/<%= user?.posts[0]?.image %>" alt="">
+        </div>
+        <h1 class="px-4 text-xl font-bold"><%= user?.posts[0]?.title %></h1>
+        <a class="px-4 font-semibold" href="/my-pins">All Pins</a>
+    </div> 
+</div>
+</div>
+<script>
+    document.querySelector('#pencilicon').addEventListener('click', function(){
+        document.querySelector('#uploadimage input').click();
+    })
+
+    document.querySelector('#uploadimage input').addEventListener('change', function(){
+        document.querySelector('#uploadimage').submit();
+    })
+</script>
+<% include ./partials/footer.ejs %>
